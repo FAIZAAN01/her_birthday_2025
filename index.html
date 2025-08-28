@@ -194,6 +194,94 @@
         .popup:hover {
             transform: scale(1.1);
         }
+        /* --- Background Themes --- */
+body.day {
+    background: linear-gradient(135deg, #87CEEB, #fffacd);
+}
+
+body.night {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* --- Rain Effect --- */
+#rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.raindrop {
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background: rgba(174,194,224,0.5);
+    animation: fall 0.5s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* --- Snow Effect --- */
+#snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.snowflake {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    0% { transform: translateY(-10px) translateX(0); }
+    100% { transform: translateY(100vh) translateX(30px); }
+}
+
+/* --- Stars Effect --- */
+#stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
     </style>
 </head>
 
@@ -209,14 +297,124 @@
     <div id="caughtMessage">You caught it hehe!</div>
 
     <div id="toggleContainer">
-        <span>Disable Moving Button</span>
-        <label class="toggleSwitch">
-            <input type="checkbox" id="disableToggle">
-            <span class="slider"></span>
-        </label>
+        <div class="themeToggle">
+            <span>Disable Moving Button</span>
+            <label class="toggleSwitch">
+                <input type="checkbox" id="disableToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    
+        <div class="themeToggle">
+            <span>Day / Night</span>
+            <label class="toggleSwitch">
+                <input type="checkbox" id="dayNightToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    
+        <div class="themeToggle">
+            <span>Rain / Sunny</span>
+            <label class="toggleSwitch">
+                <input type="checkbox" id="rainSunnyToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    
+        <div class="themeToggle">
+            <span>Snow / No Snow</span>
+            <label class="toggleSwitch">
+                <input type="checkbox" id="snowToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
+    
+    <!-- Containers for animated effects -->
+    <div id="rain"></div>
+    <div id="snow"></div>
+    <div id="stars"></div>
+
 
     <script>
+
+        const dayNightToggle = document.getElementById('dayNightToggle');
+        const rainSunnyToggle = document.getElementById('rainSunnyToggle');
+        const snowToggle = document.getElementById('snowToggle');
+
+        const rainContainer = document.getElementById('rain');
+        const snowContainer = document.getElementById('snow');
+        const starsContainer = document.getElementById('stars');
+
+        function clearChildren(el) {
+            while (el.firstChild) el.removeChild(el.firstChild);
+        }
+
+        // Day/Night toggle + stars
+        dayNightToggle.addEventListener('change', () => {
+            if (dayNightToggle.checked) {
+                document.body.classList.add('night');
+                document.body.classList.remove('day');
+                spawnStars();
+            } else {
+                document.body.classList.add('day');
+                document.body.classList.remove('night');
+                clearChildren(starsContainer);
+            }
+        });
+
+        // Rain / Sunny toggle
+        rainSunnyToggle.addEventListener('change', () => {
+            if (rainSunnyToggle.checked) {
+                spawnRain();
+            } else {
+                clearChildren(rainContainer);
+            }
+        });
+
+        // Snow / No Snow toggle
+        snowToggle.addEventListener('change', () => {
+            if (snowToggle.checked) {
+                spawnSnow();
+            } else {
+                clearChildren(snowContainer);
+            }
+        });
+
+        // --- Helper functions for effects ---
+        function spawnRain() {
+            clearChildren(rainContainer);
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.style.left = Math.random() * window.innerWidth + 'px';
+                drop.style.animationDuration = 0.5 + Math.random() * 0.5 + 's';
+                rainContainer.appendChild(drop);
+            }
+        }
+
+        function spawnSnow() {
+            clearChildren(snowContainer);
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.style.left = Math.random() * window.innerWidth + 'px';
+                flake.style.animationDuration = 5 + Math.random() * 5 + 's';
+                snowContainer.appendChild(flake);
+            }
+        }
+
+        function spawnStars() {
+            clearChildren(starsContainer);
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                star.style.animationDuration = 1 + Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
         // ----- DOM refs -----
         const btn = document.getElementById('trickyBtn');
         const staticBtn = document.getElementById('staticBtn');

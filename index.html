@@ -377,18 +377,18 @@
         }
 
         // ----- toggle behavior -----
-        // disableToggle.addEventListener('change', (e) => {
-            // isDisabled = e.target.checked;
-            // if (isDisabled) {
-                // const container = document.getElementById('buttonsContainer');
-                // if (btn.parentElement !== container) {
-                    // btn.style.position = '';
-                    // btn.style.left = '';
-                    // btn.style.top = '';
-                    // container.appendChild(btn);
-                // }
-            // }
-        // });
+        disableToggle.addEventListener('change', (e) => {
+            isDisabled = e.target.checked;
+            if (isDisabled) {
+                const container = document.getElementById('buttonsContainer');
+                if (btn.parentElement !== container) {
+                    btn.style.position = '';
+                    btn.style.left = '';
+                    btn.style.top = '';
+                    container.appendChild(btn);
+                }
+            }
+        });
         async function fetchISTTime() {
             try {
                 const response = await fetch('http://worldtimeapi.org/api/timezone/Asia/Kolkata');
@@ -418,26 +418,26 @@
             }
         }
         async function checkAccess() {
-    const nowIST = await fetchISTTime();
+            const nowIST = await fetchISTTime();
 
-    const day = nowIST.getDate();
-    const month = nowIST.getMonth(); // 0-based
-    const hours = nowIST.getHours();
+            const day = nowIST.getDate();
+            const month = nowIST.getMonth(); // 0-based
+            const hours = nowIST.getHours();
 
-    if (month < 7 || (month === 7 && day < 29) || (month === 7 && day === 29 && hours < 0)) {
-        // Before 29 Aug 00:00 IST
-        gif.src = 'gifs/Panda Spinning GIF.gif';
-        gif.style.display = 'block';
-        countdownDiv.style.display = 'block';
-        countdownDiv.textContent = "You are not even born yet 😎";
-        document.getElementById('buttonsContainer').style.display = 'none';
-    } else {
-        // After 29 Aug 00:00 IST → allow game
-        document.getElementById('buttonsContainer').style.display = 'flex';
-        gif.style.display = 'none';
-        countdownDiv.style.display = 'none';
-    }
-}
+            if (month < 7 || (month === 7 && day < 29) || (month === 7 && day === 29 && hours < 0)) {
+                // Before 29 Aug 00:00 IST
+                gif.src = 'gifs/Panda Spinning GIF.gif';
+                gif.style.display = 'block';
+                countdownDiv.style.display = 'block';
+                countdownDiv.textContent = "You are not even born yet 😎";
+                document.getElementById('buttonsContainer').style.display = 'none';
+            } else {
+                // After 29 Aug 00:00 IST → allow game
+                document.getElementById('buttonsContainer').style.display = 'flex';
+                gif.style.display = 'none';
+                countdownDiv.style.display = 'none';
+            }
+        }
 
         setInterval(checkISTRefresh, 1000);
 

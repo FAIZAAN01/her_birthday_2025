@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <title>Ultra-Quality Moving Button Game</title>
-        <style>
+    <style>
         :root {
             --primary-gradient: linear-gradient(45deg, #ff6a00, #ee0979);
             --secondary-gradient: linear-gradient(45deg, #12c2e9, #c471ed);
@@ -302,8 +302,8 @@ body.night {
 
 <body>
     <div id="buttonsContainer">
-        <button id="trickyBtn">Catch me!</button>
-        <button id="staticBtn">I'm Static</button>
+        <button id="trickyBtn">Nope, it's not today!</button>
+        <button id="staticBtn">Let's blow the candles.Hehe...</button>
     </div>
 
     <img id="feedbackGif" alt="feedback" />
@@ -351,9 +351,10 @@ body.night {
     <div id="stars"></div>
 
 
+
     <script>
 
-        const dayNightToggle = document.getElementById('dayNightToggle');
+       const dayNightToggle = document.getElementById('dayNightToggle');
         const rainSunnyToggle = document.getElementById('rainSunnyToggle');
         const snowToggle = document.getElementById('snowToggle');
 
@@ -430,6 +431,7 @@ body.night {
                 starsContainer.appendChild(star);
             }
         }
+
         // ----- DOM refs -----
         const btn = document.getElementById('trickyBtn');
         const staticBtn = document.getElementById('staticBtn');
@@ -471,7 +473,7 @@ body.night {
             'gifs/Funny GIF.gif',
         ];
 
-        const specialCountdownGif = 'gifs/catdance.gif';
+        const specialCountdownGif = 'gifs/strip tease dancing GIF.gif';
 
         // ----- helpers -----
         function isGif(src) {
@@ -591,30 +593,30 @@ body.night {
 
         // ----- toggle behavior -----
         disableToggle.addEventListener('change', (e) => {
-            isDisabled = e.target.checked;
-            if (isDisabled) {
-                const container = document.getElementById('buttonsContainer');
-                if (btn.parentElement !== container) {
-                    btn.style.position = '';
-                    btn.style.left = '';
-                    btn.style.top = '';
-                    container.appendChild(btn);
-                }
-            }
-        });
-        async function fetchISTTime() {
-            try {
-                const response = await fetch('http://worldtimeapi.org/api/timezone/Asia/Kolkata');
-                const data = await response.json();
-                // data.datetime is in ISO format: "2025-08-28T14:30:15.123456+05:30"
-                return new Date(data.datetime);
-            } catch (err) {
-                console.error("Failed to fetch IST time, fallback to local", err);
-                // fallback: calculate from local time
-                const nowUTC = new Date();
-                return new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
-            }
+        isDisabled = e.target.checked;
+        if (isDisabled) {
+        const container = document.getElementById('buttonsContainer');
+        if (btn.parentElement !== container) {
+        btn.style.position = '';
+        btn.style.left = '';
+        btn.style.top = '';
+        container.appendChild(btn);
         }
+        }
+        });
+        // async function fetchISTTime() {
+        //     try {
+        //         const response = await fetch('http://worldtimeapi.org/api/timezone/Asia/Kolkata');
+        //         const data = await response.json();
+        //         // data.datetime is in ISO format: "2025-08-28T14:30:15.123456+05:30"
+        //         return new Date(data.datetime);
+        //     } catch (err) {
+        //         console.error("Failed to fetch IST time, fallback to local", err);
+        //         // fallback: calculate from local time
+        //         const nowUTC = new Date();
+        //         return new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
+        //     }
+        // }
 
         // ----- IST Auto Refresh at 29 Aug 00:00 -----
         function checkISTRefresh() {
@@ -642,7 +644,7 @@ body.night {
                 gif.src = 'gifs/Panda Spinning GIF.gif';
                 gif.style.display = 'block';
                 countdownDiv.style.display = 'block';
-                countdownDiv.textContent = "PALAK..., You are not even born yet yaar... 🤦‍♀️🤦‍♂️🤷‍♀️🤷‍♂️";
+                countdownDiv.textContent = "You are not even born yet 😎";
                 document.getElementById('buttonsContainer').style.display = 'none';
             } else {
                 // After 29 Aug 00:00 IST → allow game

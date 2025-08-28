@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <title>Ultra-Quality Moving Button Game</title>
-    <style>
+        <style>
         :root {
             --primary-gradient: linear-gradient(45deg, #ff6a00, #ee0979);
             --secondary-gradient: linear-gradient(45deg, #12c2e9, #c471ed);
@@ -99,19 +99,33 @@
         }
 
         #toggleContainer {
-            position: absolute;
-            top: 50px;
-            right: 50px;
+            position: fixed;
+            bottom: 20px;       /* 20px from bottom */
+            right: 20px;        /* 20px from right */
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 15px;
-            padding: 10px 20px;
+            padding: 15px 20px;
             border-radius: 20px;
             background: rgba(0, 0, 0, 0.4);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
             font-size: clamp(12px, 1.2vw, 18px);
+            z-index: 50;        /* make sure it’s above everything else */
         }
+
+        .themeToggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .themeToggle span {
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+
 
         .toggleSwitch {
             position: relative;
@@ -194,6 +208,7 @@
         .popup:hover {
             transform: scale(1.1);
         }
+
         /* --- Background Themes --- */
 body.day {
     background: linear-gradient(135deg, #87CEEB, #fffacd);

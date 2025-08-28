@@ -377,33 +377,33 @@
         }
 
         // ----- toggle behavior -----
-        disableToggle.addEventListener('change', (e) => {
-            isDisabled = e.target.checked;
-            if (isDisabled) {
-                const container = document.getElementById('buttonsContainer');
-                if (btn.parentElement !== container) {
-                    btn.style.position = '';
-                    btn.style.left = '';
-                    btn.style.top = '';
-                    container.appendChild(btn);
-                }
-            }
-        });
+        // disableToggle.addEventListener('change', (e) => {
+            // isDisabled = e.target.checked;
+            // if (isDisabled) {
+                // const container = document.getElementById('buttonsContainer');
+                // if (btn.parentElement !== container) {
+                    // btn.style.position = '';
+                    // btn.style.left = '';
+                    // btn.style.top = '';
+                    // container.appendChild(btn);
+                // }
+            // }
+        // });
 
         // ----- IST Auto Refresh at 29 Aug 00:00 -----
-        // function checkISTRefresh() {
-        //     const nowUTC = new Date();
-        //     const nowIST = new Date(nowUTC.getTime() + (5.5 * 60 * 60 * 1000));
-        //     const day = nowIST.getUTCDate();
-        //     const month = nowIST.getUTCMonth();
-        //     const hours = nowIST.getUTCHours();
-        //     const minutes = nowIST.getUTCMinutes();
-        //     const seconds = nowIST.getUTCSeconds();
-        //     if (day === 29 && month === 7 && hours === 0 && minutes === 0 && seconds === 0) {
-        //         console.log("🔄 Refreshing page at 29 Aug 00:00 IST...");
-        //         location.reload();
-        //     }
-        // }
+        function checkISTRefresh() {
+            const nowUTC = new Date();
+            const nowIST = new Date(nowUTC.getTime() + (5.5 * 60 * 60 * 1000));
+            const day = nowIST.getUTCDate();
+            const month = nowIST.getUTCMonth();
+            const hours = nowIST.getUTCHours();
+            const minutes = nowIST.getUTCMinutes();
+            const seconds = nowIST.getUTCSeconds();
+            if (day === 29 && month === 7 && hours === 0 && minutes === 0 && seconds === 0) {
+                console.log("🔄 Refreshing page at 29 Aug 00:00 IST...");
+                location.reload();
+            }
+        }
         function checkISTAccess() {
                 const nowUTC = new Date();
                 const nowIST = new Date(nowUTC.getTime() + (5.5 * 60 * 60 * 1000));

@@ -22,8 +22,6 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 
-const PASSWORD = process.env.DEMO_PASSWORD;
-
 // ---------- LOGIN PAGE ----------
 app.get("/", (req, res) => {
   if (req.session.loggedIn) return res.redirect("/secure");
@@ -33,13 +31,14 @@ app.get("/", (req, res) => {
 // ---------- HANDLE LOGIN ----------
 app.post("/index", (req, res) => {
   const { password } = req.body;
-  if (password === PASSWORD) {
+  if (password === process.env.DEMO_PASSWORD) {
     req.session.loggedIn = true;
-    return res.redirect("/secure");
+    return res.redirect("/secure"); // redirect to /secure route
   } else {
     return res.send("<h2>Wrong Password</h2><a href='/'>Try Again</a>");
   }
 });
+
 
 // ---------- SECURE PAGE ----------
 app.get("/secure", (req, res) => {

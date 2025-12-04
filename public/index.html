@@ -14,45 +14,33 @@
 
 <h1>Secure Login</h1>
 
-<form method="POST" action="/secure.html">
-  <input type="password" name="password" placeholder="Enter Password" required>
+<form id="loginForm">
+  <input type="password" id="password" placeholder="Enter Password" required>
   <button type="submit">Login</button>
 </form>
 
 <script>
-  // Disable right-click
-  document.addEventListener("contextmenu", e => e.preventDefault());
+  const CORRECT_PASSWORD = "mypassword"; // change this to your desired password
 
-  // Disable DevTools key combos
-  document.addEventListener("keydown", e => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) ||
-      (e.ctrlKey && e.key === "U")
-    ) {
-      e.preventDefault();
-      alert("Inspect mode is disabled.");
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent default form submission
+
+    const enteredPassword = document.getElementById("password").value;
+
+    if(enteredPassword === CORRECT_PASSWORD){
+      // store authenticated status in localStorage
+      localStorage.setItem("authenticated", "true");
+      // redirect to secure page
+      window.location.href = "/secure.html";
+    } else {
+      alert("Incorrect password!");
     }
   });
 
-  // Detect DevTools
-  let devtools = false;
-  const threshold = 160;
-
-  setInterval(() => {
-    if (
-      window.outerWidth - window.innerWidth > threshold ||
-      window.outerHeight - window.innerHeight > threshold
-    ) {
-      if (!devtools) {
-        devtools = true;
-        alert("DevTools detected! Redirecting for security.");
-        location.href = "https://www.google.com/";
-      }
-    } else {
-      devtools = false;
-    }
-  }, 1000);
+  // Optional: redirect to login if user is not authenticated
+  if (window.location.pathname === "/secure.html" && localStorage.getItem("authenticated") !== "true") {
+    window.location.href = "/";
+  }
 </script>
 
 </body>

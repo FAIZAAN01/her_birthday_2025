@@ -20,7 +20,7 @@
 </form>
 
 <script>
-const CORRECT_PASSWORD = import.meta.env.VITE_PASSWORD;
+const CORRECT_PASSWORD = process.env.VITE_PASSWORD;
  // change this to your desired password
 
   document.getElementById("loginForm").addEventListener("submit", function(e) {

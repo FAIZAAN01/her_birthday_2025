@@ -20,7 +20,8 @@
 </form>
 
 <script>
-  const CORRECT_PASSWORD = "mypassword"; // change this to your desired password
+const CORRECT_PASSWORD = import.meta.env.VITE_PASSWORD;
+ // change this to your desired password
 
   document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault(); // prevent default form submission

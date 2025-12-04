@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Login</title>
-  <meta charset="utf-8" />
   <style>
-    body { font-family: Arial; background:#111; color:white; text-align:center; padding:50px; }
-    form { display:inline-block; background:#222; padding:30px; border-radius:10px; }
-    input { padding:12px; width:250px; margin:10px; border:none; border-radius:6px; }
-    button { padding:12px; width:280px; background:#4CAF50; border:none; border-radius:6px; color:white; cursor:pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    form {
+      display: inline-block;
+      background: #222;
+      padding: 30px;
+      border-radius: 10px;
+    }
+    input {
+      padding: 12px;
+      width: 250px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      padding: 12px;
+      width: 280px;
+      background: #4CAF50;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
   </style>
 </head>
 <body>
 
 <h1>Secure Login</h1>
 
-<form id="loginForm">
-  <input type="password" id="password" placeholder="Enter Password" required>
+<form action="/index" method="POST">
+  <input type="password" name="password" placeholder="Enter Password" required>
   <button type="submit">Login</button>
 </form>
-
-<script>
-const CORRECT_PASSWORD = process.env.VITE_PASSWORD;
- // change this to your desired password
-
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // prevent default form submission
-
-    const enteredPassword = document.getElementById("password").value;
-
-    if(enteredPassword === CORRECT_PASSWORD){
-      // store authenticated status in localStorage
-      localStorage.setItem("authenticated", "true");
-      // redirect to secure page
-      window.location.href = "/secure.html";
-    } else {
-      alert("Incorrect password!");
-    }
-  });
-
-  // Optional: redirect to login if user is not authenticated
-  if (window.location.pathname === "/secure.html" && localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "/";
-  }
-</script>
 
 </body>
 </html>

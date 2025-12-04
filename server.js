@@ -27,7 +27,7 @@ const PASSWORD = process.env.DEMO_PASSWORD;
 // ---------- LOGIN PAGE ----------
 app.get("/", (req, res) => {
   if (req.session.loggedIn) return res.redirect("/secure");
-  res.sendFile(path.join(__dirname, "public", "login.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ---------- HANDLE LOGIN ----------

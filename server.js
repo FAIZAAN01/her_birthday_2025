@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 // ---------- HANDLE LOGIN ----------
-app.post("/login", (req, res) => {
+app.post("/index", (req, res) => {
   const { password } = req.body;
   if (password === PASSWORD) {
     req.session.loggedIn = true;

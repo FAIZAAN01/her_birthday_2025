@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta charset="utf-8" />
+  <style>
+    body { font-family: Arial; background:#111; color:white; text-align:center; padding:50px; }
+    form { display:inline-block; background:#222; padding:30px; border-radius:10px; }
+    input { padding:12px; width:250px; margin:10px; border:none; border-radius:6px; }
+    button { padding:12px; width:280px; background:#4CAF50; border:none; border-radius:6px; color:white; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<h1>Secure Login</h1>
+
+<form method="POST" action="/login">
+  <input type="password" name="password" placeholder="Enter Password" required>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  // Disable right-click
+  document.addEventListener("contextmenu", e => e.preventDefault());
+
+  // Disable DevTools key combos
+  document.addEventListener("keydown", e => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      alert("Inspect mode is disabled.");
+    }
+  });
+
+  // Detect DevTools
+  let devtools = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      if (!devtools) {
+        devtools = true;
+        alert("DevTools detected! Redirecting for security.");
+        location.href = "https://www.google.com/";
+      }
+    } else {
+      devtools = false;
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>

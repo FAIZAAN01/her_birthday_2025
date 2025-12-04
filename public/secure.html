@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Web3Form</title>
+  <meta charset="utf-8" />
+<style>
+  /* Full-screen dark terminal background */
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Terminal form container */
+  form {
+    background-color: #111;
+    border: 2px solid #00ff00;
+    padding: 30px 25px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 15px #00ff00;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    font-size: 1.8rem;
+    padding-right: 50px;
+  }
+
+  label {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  input, select, textarea, button {
+    margin-top: 5px;
+    background: #000;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 3px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px #00ff00;
+  }
+
+  button {
+    margin-top: 25px;
+    background: #000;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  button:hover {
+    background: #00ff00;
+    color: #000;
+    box-shadow: 0 0 10px #00ff00;
+  }
+
+  /* Blinking cursor effect for inputs */
+  input::placeholder {
+    color: #00ff00;
+  }
+</style>
+</head>
+<body>
+
+<h1>Free Air Ticket (One Time Use Only)</h1>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+  <!-- Web3Forms Key Placeholder -->
+  <input type="hidden" name="access_key" value="shinu_PLACEHOLDER">
+
+  <!-- Name -->
+  <input type="text" name="name" placeholder="Your Name" required>
+
+  <!-- Email -->
+  <input type="email" name="email" placeholder="Your Email" required>
+
+  <!-- Dates -->
+  <label for="start_date">Start Date:</label>
+  <input type="date" id="start_date" name="start_date" required>
+
+  <label for="end_date">End Date:</label>
+  <input type="date" id="end_date" name="end_date" required>
+
+  <!-- Destinations -->
+  <label for="destination1">Destination 1:</label>
+  <input type="text" id="destination1" name="destination1" placeholder="City or Place" required>
+
+  <label for="destination2">Destination 2:</label>
+  <input type="text" id="destination2" name="destination2" placeholder="City or Place" required>
+
+  <!-- Submit Button -->
+  <button type="submit">Send</button>
+</form>
+
+<script>
+  const startDateInput = document.getElementById("start_date");
+  const endDateInput = document.getElementById("end_date");
+
+  // Set minimum start date to today
+  const today = new Date().toISOString().split("T")[0];
+  startDateInput.setAttribute("min", today);
+
+  // Update end date min whenever start date changes
+  startDateInput.addEventListener("change", () => {
+    endDateInput.value = ""; // reset end date
+    endDateInput.setAttribute("min", startDateInput.value);
+  });
+</script>
+
+
+
+<script>
+  // Disable right-click
+  document.addEventListener("contextmenu", e => e.preventDefault());
+
+  // Disable DevTools key combos
+  document.addEventListener("keydown", e => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      alert("Inspect mode is disabled.");
+    }
+  });
+
+  // Detect DevTools
+  let devtools = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      if (!devtools) {
+        devtools = true;
+        alert("DevTools detected! Logging you out.");
+        
+        fetch("/logout", { method: "POST" })
+          .then(() => location.href = "/");
+      }
+    } else {
+      devtools = false;
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
